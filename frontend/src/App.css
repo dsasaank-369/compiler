@@ -1,0 +1,12 @@
+.main-body{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title{
+  text-align: center;
+}
