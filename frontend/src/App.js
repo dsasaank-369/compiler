@@ -1,27 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { Input, Select, Button, Spin } from 'antd';
 import axios from 'axios';
 
 
 const { TextArea } = Input;
-const SERVER_URL=`http://localhost:5000/run`;
+const SERVER_URL=`http://localhost:5000/`;
 
 function App() {
-  const [code, setCode] = useState(`// Edit this code or paste your code
-
-#include <iostream>
-using namespace std;
-
-// main() function: where the execution of
-// C++ program begins
-int main() {
-  
-    // This statement prints "Hello World"
-    cout << "Hello World";
-
-    return 0;
-}`);
+  const [code, setCode] = useState("");
 
   const [language, setLanguage] = useState("cpp");
   const [output, setOutput] = useState("");
@@ -44,6 +31,35 @@ int main() {
     console.log('Updated Code:', e.target.value); 
   };
 
+  useEffect(()=>{
+    const defaultCode = {
+      javascript: 'console.log("hello world");',
+      python: 'print("hello world")',
+      cpp: `// Edit this code or paste your code
+
+#include <iostream>
+using namespace std;
+
+// main() function: where the execution of
+// C++ program begins
+int main() {
+  
+    // This statement prints "Hello World"
+    cout << "Hello World";
+
+    return 0;
+}`,
+      java: `import java.util.*;
+
+public class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello World");
+  }
+}`,
+    };
+    setCode(defaultCode[language])
+  },[handleChange])
+
   const handleSubmit = async () => {
     const data = {
       language,
@@ -53,7 +69,7 @@ int main() {
 
     setLoading(true); 
     try {
-      const response = await axios.post(SERVER_URL, data);
+      const response = await axios.post(SERVER_URL+'/run', data);
       console.log("Response from server:", response);
       setOutput(response.data.output); 
     } catch (error) {
@@ -85,6 +101,8 @@ int main() {
             { value: 'cpp', label: 'C ++' },
             { value: 'java', label: 'Java' },
             { value: 'python', label: 'Python' },
+            { value: 'javascript', label: 'Javascript' },
+
           ]}
         />
         <TextArea 

@@ -7,7 +7,7 @@ if(!fs.existsSync(folder)){
     fs.mkdirSync(folder);
 }
 
-const executeCpp=(filepath, input)=>{
+const executeCPP=(filepath, input)=>{
     //dirname/codes/id.cpp
     const jobid=path.basename(filepath).split(".")[0];//id
     const outputFileName=`${jobid}.out`;//id.out
@@ -27,7 +27,7 @@ const executeCpp=(filepath, input)=>{
     })
 }
 
-module.exports=executeCpp;
+module.exports=executeCPP;
 
 //error for any dev issue
 // stderr for any command line issue
