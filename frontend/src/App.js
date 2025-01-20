@@ -21,15 +21,8 @@ function App() {
     console.log('Selected Language:', value); 
   };
 
-  const handleCode = (e) => {
-    setCode(e.target.value);
-    console.log('Updated Code:', e.target.value); 
-  };
-
-  const handleInput = (e) => {
-    setInput(e.target.value);
-    console.log('Updated Code:', e.target.value); 
-  };
+  
+  
 
   useEffect(()=>{
     const defaultCode = {
@@ -58,7 +51,18 @@ public class HelloWorld {
 }`,
     };
     setCode(defaultCode[language])
-  },[handleChange])
+  },[language]);
+
+  const handleInput = (e) => {
+    setInput(e.target.value);
+    console.log('Updated Code:', e.target.value); 
+  };
+
+  const handleCode = (e) => {
+    setCode(e.target.value);
+    console.log('Updated Code:', e.target.value); 
+  };
+
 
   const handleSubmit = async () => {
     const data = {
@@ -69,7 +73,7 @@ public class HelloWorld {
 
     setLoading(true); 
     try {
-      const response = await axios.post(SERVER_URL+'/run', data);
+      const response = await axios.post(SERVER_URL+'run', data);
       console.log("Response from server:", response);
       setOutput(response.data.output); 
     } catch (error) {
@@ -107,7 +111,7 @@ public class HelloWorld {
         />
         <TextArea 
           style={{ width: 1000, height: '50vh' }} 
-          placeholder="Write your code here..."  // Placeholder text
+          placeholder="Write your code here..."  
           value={code} 
           onChange={handleCode} 
         />
@@ -119,7 +123,7 @@ public class HelloWorld {
         <h2 style={{margin:`0`}}>Input:</h2>
         <TextArea 
           style={{ width: 1000, height: '15vh' }} 
-          placeholder="Give your input here..."  // Placeholder text
+          placeholder="Give your input here..."  
           value={input} 
           onChange={handleInput} 
         />
