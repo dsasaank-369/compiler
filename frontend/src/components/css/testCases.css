@@ -1,0 +1,73 @@
+/* General styles for the TestCases container */
+.no-scrollbar {
+    overflow: hidden; /* Prevents scrollbars from showing */
+  }
+  
+  /* Styling for the TestCases component container */
+  .test-cases-container {
+    background-color: black; /* Dark background */
+    padding: 20px; /* Padding for spacing */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    text-align: left;
+    color: #EDF2F7; /* Light text */
+    max-width: 100%; /* Ensure it fills the available space */
+  }
+  
+  /* Styling for the output block */
+  .output-block {
+    max-height: 300px;
+    overflow-y: auto; /* Vertical scrolling if content overflows */
+    background-color: #4A5568; /* Slightly lighter gray for output */
+    padding: 15px;
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below output */
+    color: #E2E8F0; /* Light gray text for output */
+    font-size: 14px;
+  }
+  
+  /* Styling for buttons section */
+  .buttons-section {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 20px; /* Space below buttons */
+  }
+  
+  /* Input styling */
+  .input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between input field and labels */
+  }
+  
+  /* RunButton and SubmitButton */
+  button {
+    background-color: #3182CE; /* Blue background */
+    color: white;
+    padding: 12px 20px; /* Padding for buttons */
+    border-radius: 8px; /* Rounded corners */
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #2B6CB0; /* Darker blue on hover */
+  }
+  
+  /* Input field styling */
+  input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E0; /* Light border for input */
+    font-size: 14px;
+    color: #2D3748; /* Dark text for input */
+    background-color: #EDF2F7; /* Light background for input */
+  }
+  
+  input:focus {
+    border-color: #3182CE; /* Focused input border color */
+    outline: none;
+  }
+  

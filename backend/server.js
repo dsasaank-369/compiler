@@ -1,30 +1,43 @@
 const express=require('express');
 const cors=require('cors');
-
-const generateFile = require('./generatefile');
-const executeCpp = require('./executeCPP')
-const inputfile = require('./inputFile');
-const { executeJava } = require('./executeJava');
-const { executeJavascript } = require('./executeJavascript');
-const { executePython } = require('./executePython');
-
+const mongoose = require('mongoose');
+const executeCpp = require('./utils/executeCPP')
+const inputfile = require('./utils/inputFile');
+const { executeJava } = require('./utils/executeJava');
+const { executeJavascript } = require('./utils/executeJavascript');
+const { executePython } = require('./utils/executePython');
+const generateFile = require('./utils/generatefile');
+const userRouter = require("./routes/userRoutes");
+const  problemRoutes  = require('./routes/problemRoutes');
+const  testcaseRouter  = require('./routes/testcaseRoutes');
+const submissionsRouter = require("./routes/submissionsRoutes.js");
 
 const app=express();
-app.use(cors());
 
+app.use(cors());
+require('dotenv').config();
+const port=process.env.PORT || 5001;
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-
-require('dotenv').config();
-const port=process.env.PORT || 5001;
-
+app.use("/problems", problemRoutes);
 
 app.get("/",(req,res)=>{
     res.send("Hello World!");
 });
+
+mongoose.connect(process.env.connect_db).then((result)=>{ 
+  console.log("DB connected");
+}).catch(err=>{
+  console.log(err);
+});
+
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/problems", problemRoutes);
+app.use("/api/v1/testcase", testcaseRouter);
+app.use("/api/v1/submissions", submissionsRouter);
 
 app.post("/run",async(req,res)=>{
     const{language='cpp', code, input}=req.body;
@@ -69,3 +82,4 @@ app.listen(port,()=>{
     console.log(`Server running on ${port}`);
     
 });
+

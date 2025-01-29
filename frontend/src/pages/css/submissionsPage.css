@@ -1,0 +1,82 @@
+/* General Container Styling */
+.submissions-container {
+    background: linear-gradient(to top right, #2e2e2e, #1c1c1c);
+    color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .content-wrapper {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Page Title */
+  .page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: #f44336;
+    background-color: #330000;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  /* Table Styles */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .submissions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #252525;
+    color: #e0e0e0;
+  }
+  
+  .submissions-table th,
+  .submissions-table td {
+    border: 1px solid #444;
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .submissions-table th {
+    background-color: #333;
+    font-weight: bold;
+  }
+  
+  .submissions-table tr:nth-child(even) {
+    background-color: #2a2a2a;
+  }
+  
+  .submissions-table tr:hover {
+    background-color: #3a3a3a;
+  }
+  
+  /* Verdict Styles */
+  .verdict {
+    font-weight: bold;
+  }
+  
+  .verdict-error {
+    color: #ff5722;
+  }
+  
+  .verdict-success {
+    color: #4caf50;
+  }
+  

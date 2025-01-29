@@ -1,0 +1,192 @@
+.loading-container {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.loading-text {
+  font-size: 1.25rem;
+  color: #4b5563;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #2563eb; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.main-container{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#problem-details{
+  padding: 20px;
+}
+
+.code-test-section{
+  padding: 20px;
+
+}
+
+.problem-topics {
+  margin-top: 20px;
+}
+
+.problem-topics h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.topics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adds space between badges */
+}
+
+.topic-badge {
+  display: inline-block;
+  background-color: #f0f8ff; /* Light blue background */
+  color: #0056b3; /* Darker blue text */
+  padding: 8px 12px;
+  border-radius: 20px; /* Rounded corners */
+  font-size: 0.875rem; /* Slightly smaller text */
+  font-weight: 500;
+  border: 1px solid #cce7ff; /* Subtle border */
+  transition: all 0.3s ease; /* Smooth hover effect */
+  cursor: default;
+}
+
+.topic-badge:hover {
+  background-color: #0056b3; /* Darker blue background */
+  color: #fff; /* White text on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.problem-companies {
+  margin-top: 20px;
+}
+
+.problem-companies h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.companies-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adds space between badges */
+}
+
+.company-badge {
+  display: inline-block;
+  background-color: #f4f4f9; /* Soft light gray background */
+  color: #4c5c68; /* Dark gray text */
+  padding: 8px 16px;
+  border-radius: 30px; /* Rounded corners */
+  font-size: 0.875rem; /* Slightly smaller text */
+  font-weight: 500;
+  border: 1px solid #d0d6e1; /* Subtle border */
+  transition: all 0.3s ease; /* Smooth hover effect */
+  cursor: default;
+}
+
+.company-badge:hover {
+  background-color: #4c5c68; /* Dark gray background */
+  color: #fff; /* White text on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.problem-examples {
+  margin-top: 30px;
+  width: 80%;
+}
+
+.examples-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.example-block {
+  background-color: #f9f9f9; /* Light background for each example */
+  border: 1px solid #ddd; /* Border around each example */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
+}
+
+.example-block:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Hover effect */
+}
+
+.example-input,
+.example-output,
+.example-explanation {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.example-input {
+  background-color: #f1f1f1; /* Slightly darker background for input */
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace; /* Use monospace font for input */
+  border: 1px solid #ccc;
+}
+
+.example-output {
+  background-color: #e8f4e8; /* Light green background for output */
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace; /* Use monospace font for output */
+  border: 1px solid #a3d9a3;
+}
+
+.example-explanation {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+.example-block strong {
+  color: #333;
+}
+
+.code-test-section {
+  display: flex;
+  flex-direction: column; /* Stack the CodeEditor and TestCases vertically */
+  width: 50%;
+  gap: 20px; /* Add some space between the two components */
+  padding: 20px; /* Optional padding around the section */
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+  border-radius: 8px; /* Optional rounded corners */
+  position: fixed;
+  left: 50%;
+}
+
+

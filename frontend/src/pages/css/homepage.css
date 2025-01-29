@@ -1,0 +1,9 @@
+.header{
+    display: flex;
+    gap: 2rem;
+}
+
+.header a{
+    text-decoration: none;
+
+}
