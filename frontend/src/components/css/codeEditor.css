@@ -2,3 +2,72 @@
     height: 100%;
 }
 
+.code-editor-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: #1e1e2e; /* Dark background */
+    border-radius: 12px;
+    max-width: 800px;
+  }
+  
+  .select-container {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  
+  .language-selector {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #4b5263;
+    background: #2e2e3e;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .language-selector:hover {
+    background: #3a3a4a;
+    border-color: #6b7280;
+  }
+  
+  .language-selector:focus {
+    border-color: #7aa2f7;
+    box-shadow: 0px 0px 8px rgba(122, 162, 247, 0.5);
+  }
+  
+  /* CodeMirror styling */
+  .cm-editor {
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .cm-scroller {
+    max-height: 50vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #7aa2f7 #2e2e3e;
+  }
+  
+  /* Custom scrollbar */
+  .cm-scroller::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .cm-scroller::-webkit-scrollbar-track {
+    background: #2e2e3e;
+  }
+  
+  .cm-scroller::-webkit-scrollbar-thumb {
+    background-color: #7aa2f7;
+    border-radius: 4px;
+  }
+  
+  .cm-scroller::-webkit-scrollbar-thumb:hover {
+    background-color: #a5b4fc;
+  }
+  

@@ -1,18 +1,22 @@
-
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9; 
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ffffff; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    gap: 1rem;
-  }
-  
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 6vh;
+  background-color: #1f1a24;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+  color: #bb86fc;
+  padding: 1rem 2rem;
+}
+
+.navbar a:hover {
+  background-color: #332940;
+}

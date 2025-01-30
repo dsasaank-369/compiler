@@ -5,7 +5,7 @@ import { message } from "antd";
 import "./css/testCases.css";
 
 function TestCases({ id, value, language, input, onChangeInput }) {
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState("Output:");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -24,14 +24,7 @@ function TestCases({ id, value, language, input, onChangeInput }) {
       console.log("Compilation result:", response.data);
     } catch (error) {
       console.error("Error during code execution:", error);
-      message.error(
-        error.response?.data?.message ||
-          error.message ||
-          "An unknown error occurred"
-      );
-      setOutput(
-        error.response?.data?.stack || "Error occurred during execution"
-      );
+      setOutput( error.response.data.stack);
     }
   };
 
@@ -72,9 +65,7 @@ function TestCases({ id, value, language, input, onChangeInput }) {
     }
     catch (error) {
       console.error("Error during submission:", error);
-      setOutput(
-        error.response?.data?.stack || "Error occurred during submission"
-      );
+      setOutput( error.response.data.stack || error.response.data.message);
       // return next(new AppError(`Submission failed: ${error.message}`, 500));
   }
      finally {
@@ -84,11 +75,15 @@ function TestCases({ id, value, language, input, onChangeInput }) {
 
   return (
     <div className="test-cases-container">
-      {output && (
+      {output!=='Output:' ? (
         <div className="output-block">
           <strong>Output: </strong> <pre>{output}</pre>
         </div>
-      )}
+      ):
+      <div className="output-block">
+          <strong>Output: </strong> <pre>Output will display here</pre>
+        </div>
+      }
       <div className="buttons-section">
         <button
           onClick={runCode}

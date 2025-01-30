@@ -1,9 +1,11 @@
 /* table.css */
 .table-container {
-  margin: 0 auto;
+  margin: 50px auto;
   width: 91.666667%;
   max-width: 96rem;
-  padding-top: 2.5rem;
+  padding: 2.5rem;
+  background-color: #1d1d1d;
+  border-radius: 10px;
 }
 
 .table-header {
@@ -16,7 +18,6 @@
 .table-header h1 {
   font-size: 1.875rem;
   font-weight: 800;
-  color: #1f2937;
 }
 
 .table-header a {
@@ -33,7 +34,7 @@
 .table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #272727;
 }
 
 .table th {
@@ -42,11 +43,11 @@
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #f9fafb;
+  background-color: #222222;
 }
 
 .table tbody tr:hover {
-  background-color: #e0e7ff;
+  background-color: #222222;
 }
 
 .table tbody tr td {

@@ -75,7 +75,7 @@ public class HelloWorld {
         theme={tokyoNight}
         extensions={[getLanguageExtension(language)]}
         onChange={onChange}
-        style={{ height: "60vh", borderRadius: "8px", border: "1px solid #ccc" }}
+        style={{ height: "50vh", borderRadius: "8px", border: "1px solid #ccc" }}
       />
     </div>
   );

@@ -50,9 +50,11 @@ exports.runCode = catchAsync(async (req, res, next) => {
         });
     } catch (error) {
         console.error("Error during execution:", error.message);
-        return next(
-            new Error(error.message || "Something went wrong during execution")
-        );
+        return res.status(500).json({
+            status: "error",
+            message: error.message || "Something went wrong during execution",
+            stack: error.stack
+        });
     }
 });
 
@@ -89,7 +91,10 @@ exports.submitCode = catchAsync(async (req, res, next) => {
     const results = [];
 
     if (!problem.testCases || problem.testCases.length === 0) {
-        return next(new AppError("No test cases available for this problem.", 404));
+        return res.status(404).json({
+            status: "error",
+            message: "No test cases for this problem.",
+        });
     }
 
 
@@ -160,9 +165,13 @@ exports.submitCode = catchAsync(async (req, res, next) => {
                 isPassed: executionResult.trim() === expectedOutput.trim(),
             });
 
-        } catch (err) {
-            console.error("Error during code execution:", err);
-            return next(new AppError(`Execution error: ${err.message}`, 500));
+        } catch (error) {
+            console.error("Error during code execution:", error);
+            return res.status(500).json({
+                status: "error",
+                message: error.message || "Something went wrong during execution",
+                stack: error.stack
+            });
         }
 
     }

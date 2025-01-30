@@ -1,2 +1,5 @@
-/node_modules
+node_modules
 .env
+/backend/utils/codes
+/backend/utils/Inputs
+/backend/utils/outputs

@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API_URI from "../config";
 import "../pages/css/problemsPage.css";
 import NavBar from "../components/NavBar";
 import { Tag, Modal, Input, Button, Select, Form } from "antd";
+import {
+  CheckCircleFilled,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 function ProblemsPage() {
   const [problems, setProblems] = useState([]);
@@ -21,10 +25,9 @@ function ProblemsPage() {
   const [constraints, setConstraints] = useState([]);
   const [timeLimit, setTimeLimit] = useState("");
   const [examples, setExamples] = useState([]);
-
-
+  const [testCases, setTestCases] = useState([{ input: "", output: "" }]);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const [user, setUser] = useState(false);
 
   useEffect(() => {
     const userDetails = localStorage.getItem("userId");
@@ -63,7 +66,36 @@ function ProblemsPage() {
     setExamples(updatedExamples);
   };
 
-  const hanldeSubmitTask = async () => {
+  const handleAddTestCase = () => {
+    setTestCases([...testCases, { input: "", output: "" }]);
+  };
+
+  const handleRemoveTestCase = (index) => {
+    setTestCases(testCases.filter((_, i) => i !== index));
+  };
+
+  const handleTestCaseChange = (index, field, value) => {
+    const updatedTestCases = [...testCases];
+    updatedTestCases[index][field] = value;
+    setTestCases(updatedTestCases);
+  };
+
+  const fetchProblems = async () => {
+    try {
+      const response = await axios.get(`${API_URI}/problems`);
+      setProblems(response.data.data.problems);
+      setLoading(false);
+    } catch (err) {
+      setError("Failed to fetch problems." + err.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProblems();
+  }, []);
+
+  const handleSubmitTask = async () => {
     try {
       const data = {
         title,
@@ -76,32 +108,49 @@ function ProblemsPage() {
         constraints,
         timeLimit,
       };
+
       const response = await axios.post(`${API_URI}/problems`, data);
       console.log(response);
+      const problemId = response.data.data.problem._id;
+
+      console.log(problemId);
+
+      const testCasesWithId = testCases.map((testCase) => ({
+        ...testCase,
+        problemId,
+      }));
+
+      for (const testCase of testCasesWithId) {
+        await axios.post(`${API_URI}/testcase`, testCase);
+      }
+      console.log(JSON.stringify(response) + " Response");
       setProblems(response.data.data.problems);
+      fetchProblems();
       setisAdding(false);
       setLoading(false);
     } catch (err) {
-      setError("Failed to fetch problems." + err.message);
+      setError("Failed to add problem." + err.message);
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    const fetchProblems = async () => {
-      try {
-        const response = await axios.get(`${API_URI}/problems`);
-        console.log(response);
-        setProblems(response.data.data.problems);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch problems." + err.message);
-        setLoading(false);
-      }
-    };
+  const handleDelete = async (problemId) => {
+    try {
+      await axios.delete(`${API_URI}/problems/${problemId}`);
+      fetchProblems();
+    } catch (err) {
+      setError("Failed to delete problem. " + err.message);
+    }
+  };
 
-    fetchProblems();
-  }, [problems]);
+  const handleDeleteClick = async (problem) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this problem?"
+    );
+    if (confirmDelete) {
+      handleDelete(problem._id);
+    }
+  };
 
   if (loading) {
     return (
@@ -120,6 +169,9 @@ function ProblemsPage() {
     <div>
       <NavBar className="">
         <div className="header">
+          <Link to="/submissions" className="primary">
+            Submissions
+          </Link>
           <Link to="/" className="primary">
             Home
           </Link>
@@ -128,9 +180,7 @@ function ProblemsPage() {
       <div className="table-container">
         <div className="table-header">
           <h1>Problems</h1>
-          <Link to="/submissions" className="primary">
-            Submissions
-          </Link>
+
           <Button onClick={() => setisAdding(true)} type="primary" size="large">
             Add Problem
           </Button>
@@ -163,6 +213,16 @@ function ProblemsPage() {
                   </td>
                   <td>{problem.topics.join(", ")}</td>
                   <td>{problem.companies.join(", ")}</td>
+                  <td>
+                    <DeleteOutlined
+                      onClick={() => handleDeleteClick(problem)}
+                      type="primary"
+                      size="large"
+                      style={{ color: "red" }}
+                    >
+                      Delete Problem
+                    </DeleteOutlined>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -174,7 +234,7 @@ function ProblemsPage() {
         confirmLoading={loading}
         title="Add New Problem"
         open={isAdding}
-        onOk={hanldeSubmitTask}
+        onOk={handleSubmitTask}
         onCancel={() => setisAdding(false)}
       >
         <Input
@@ -288,6 +348,53 @@ function ProblemsPage() {
             style={{ marginTop: 5, width: "100%" }}
           >
             + Add Example
+          </Button>
+        </Form.Item>
+
+        <Form.Item label="Test Cases">
+          {testCases.map((testCase, index) => (
+            <div
+              key={index}
+              style={{
+                marginBottom: 10,
+                padding: 10,
+                border: "1px solid #ddd",
+                borderRadius: 5,
+              }}
+            >
+              <Input
+                placeholder="Input"
+                value={testCase.input}
+                onChange={(e) =>
+                  handleTestCaseChange(index, "input", e.target.value)
+                }
+                style={{ marginBottom: 5 }}
+              />
+              <Input
+                placeholder="Output"
+                value={testCase.output}
+                onChange={(e) =>
+                  handleTestCaseChange(index, "output", e.target.value)
+                }
+                style={{ marginBottom: 5 }}
+              />
+              {testCases.length > 1 && (
+                <Button
+                  type="link"
+                  danger
+                  onClick={() => handleRemoveTestCase(index)}
+                >
+                  Remove
+                </Button>
+              )}
+            </div>
+          ))}
+          <Button
+            type="dashed"
+            onClick={handleAddTestCase}
+            style={{ marginTop: 5, width: "100%" }}
+          >
+            + Add Test Case
           </Button>
         </Form.Item>
 

@@ -34,159 +34,192 @@
     padding: 20px;
     display: grid;
     grid-template-columns: 50% 50%;
+    align-items: center;
 }
 
-#problem-details{
-  padding: 20px;
+/* Problem Details Section */
+#problem-details {
+  height: 80vh;
+  margin: 0 20px;
+  padding: 20px 20px 0px 20px;
+  background: #1d1d1d;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.code-test-section{
-  padding: 20px;
-
-}
-
-.problem-topics {
-  margin-top: 20px;
-}
-
-.problem-topics h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
+#problem-details h1 {
+  font-size: 24px;
+  color: #ffcc00;
   margin-bottom: 10px;
-  color: #333;
+}
+
+#problem-details p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Metadata Styling */
+.problem-metadata {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.problem-metadata .ant-tag {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+/* Topics Section */
+.problem-topics h3 {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #7aa2f7;
 }
 
 .topics-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Adds space between badges */
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .topic-badge {
-  display: inline-block;
-  background-color: #f0f8ff; /* Light blue background */
-  color: #0056b3; /* Darker blue text */
-  padding: 8px 12px;
-  border-radius: 20px; /* Rounded corners */
-  font-size: 0.875rem; /* Slightly smaller text */
-  font-weight: 500;
-  border: 1px solid #cce7ff; /* Subtle border */
-  transition: all 0.3s ease; /* Smooth hover effect */
-  cursor: default;
+  background: #3b3f51;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-.topic-badge:hover {
-  background-color: #0056b3; /* Darker blue background */
-  color: #fff; /* White text on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+/* Hints Dropdown */
+.dropdown-header {
+  cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #ffcc00;
+    margin-top: 15px;
 }
 
-.problem-companies {
+.hints-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.hint-item {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+/* Examples Section */
+.problem-examples {
   margin-top: 20px;
 }
 
-.problem-companies h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.companies-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Adds space between badges */
-}
-
-.company-badge {
-  display: inline-block;
-  background-color: #f4f4f9; /* Soft light gray background */
-  color: #4c5c68; /* Dark gray text */
-  padding: 8px 16px;
-  border-radius: 30px; /* Rounded corners */
-  font-size: 0.875rem; /* Slightly smaller text */
-  font-weight: 500;
-  border: 1px solid #d0d6e1; /* Subtle border */
-  transition: all 0.3s ease; /* Smooth hover effect */
-  cursor: default;
-}
-
-.company-badge:hover {
-  background-color: #4c5c68; /* Dark gray background */
-  color: #fff; /* White text on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
-}
-
-.problem-examples {
-  margin-top: 30px;
-  width: 80%;
-}
-
 .examples-header {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: #333;
+  font-size: 18px;
+  color: #7aa2f7;
 }
 
 .example-block {
-  background-color: #f9f9f9; /* Light background for each example */
-  border: 1px solid #ddd; /* Border around each example */
-  border-radius: 8px; /* Rounded corners */
-  padding: 15px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
-}
-
-.example-block:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Hover effect */
+  background: #2e2e3e;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 8px;
 }
 
 .example-input,
 .example-output,
 .example-explanation {
-  font-size: 1rem;
-  margin-bottom: 12px;
-  line-height: 1.5;
+  font-size: 15px;
+  margin-bottom: 4px;
 }
 
-.example-input {
-  background-color: #f1f1f1; /* Slightly darker background for input */
-  padding: 10px;
-  border-radius: 5px;
-  font-family: monospace; /* Use monospace font for input */
-  border: 1px solid #ccc;
+/* Constraints Section */
+.problem-constraints h3 {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #ffcc00;
 }
 
-.example-output {
-  background-color: #e8f4e8; /* Light green background for output */
-  padding: 10px;
-  border-radius: 5px;
-  font-family: monospace; /* Use monospace font for output */
-  border: 1px solid #a3d9a3;
+.problem-constraints ul {
+  padding-left: 20px;
 }
 
-.example-explanation {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 10px;
+.problem-constraints li {
+  font-size: 15px;
+  margin-bottom: 6px;
 }
 
-.example-block strong {
-  color: #333;
+/* Companies Section */
+.problem-companies h3 {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #7aa2f7;
 }
 
+.companies-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.company-badge {
+  background: #3b3f51;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Code Editor & Test Cases Section */
 .code-test-section {
   display: flex;
-  flex-direction: column; /* Stack the CodeEditor and TestCases vertically */
-  width: 50%;
-  gap: 20px; /* Add some space between the two components */
-  padding: 20px; /* Optional padding around the section */
-  box-sizing: border-box; /* Ensure padding doesn't affect the width */
-  border-radius: 8px; /* Optional rounded corners */
-  position: fixed;
-  left: 50%;
+  flex-direction: column;
+  gap: 20px;
 }
 
+.code-editor-container,
+.test-cases-container {
+  background: #1d1d1d;
+  padding: 8px 15px;
+  border-radius: 10px;
+}
 
+/* Loading & Error Styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #fff;
+  border-top: 5px solid #7aa2f7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 16px;
+}
