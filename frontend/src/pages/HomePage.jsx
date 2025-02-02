@@ -27,6 +27,9 @@ function HomePage() {
             <Link to="/problems" className="primary">
               Problems
             </Link>
+            <Link to="/compiler" className="primary">
+              Compiler
+            </Link>
             <Link to="/login" onClick={handleLogout} className="secondary">
               Log out
             </Link>
@@ -35,7 +38,7 @@ function HomePage() {
        : 
         <NavBar className="">
           <div className="header">
-            <Link to="/register" className="primary">
+            <Link to="/signup" className="primary">
               Register
             </Link>
             <Link to="/login" className="secondary">

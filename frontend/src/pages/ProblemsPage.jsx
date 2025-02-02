@@ -10,6 +10,7 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import { color } from "@uiw/react-codemirror";
 
 function ProblemsPage() {
   const [problems, setProblems] = useState([]);
@@ -27,11 +28,15 @@ function ProblemsPage() {
   const [examples, setExamples] = useState([]);
   const [testCases, setTestCases] = useState([{ input: "", output: "" }]);
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     const userDetails = localStorage.getItem("userId");
-    setUser(userDetails);
+    if (userDetails) {
+      fetchRole();
+      setUser(userDetails);
+    }
   }, []);
 
   const getDifficultyColor = (difficulty) => {
@@ -78,6 +83,20 @@ function ProblemsPage() {
     const updatedTestCases = [...testCases];
     updatedTestCases[index][field] = value;
     setTestCases(updatedTestCases);
+  };
+
+  const fetchRole = async () => {
+    try {
+      const id = localStorage.getItem("userId");
+      const response = await axios.get(`${API_URI}/users/${id}`);
+      console.log(response.data.data.user.role);
+
+      setRole(response.data.data.user.role);
+      setLoading(false);
+    } catch (err) {
+      setError("Failed to fetch problems." + err.message);
+      setLoading(false);
+    }
   };
 
   const fetchProblems = async () => {
@@ -136,7 +155,7 @@ function ProblemsPage() {
 
   const handleDelete = async (problemId) => {
     try {
-      await axios.delete(`${API_URI}/problems/${problemId}`);
+      await axios.delete(`${API_URI}/${problemId}`);
       fetchProblems();
     } catch (err) {
       setError("Failed to delete problem. " + err.message);
@@ -180,11 +199,19 @@ function ProblemsPage() {
       <div className="table-container">
         <div className="table-header">
           <h1>Problems</h1>
-
-          <Button onClick={() => setisAdding(true)} type="primary" size="large">
-            Add Problem
-          </Button>
+          {role === "admin" ? (
+            <Button
+              onClick={() => setisAdding(true)}
+              type="primary"
+              size="large"
+            >
+              Add Problem
+            </Button>
+          ) : (
+            <></>
+          )}
         </div>
+
         <div>
           <table className="table">
             <thead>
@@ -214,6 +241,7 @@ function ProblemsPage() {
                   <td>{problem.topics.join(", ")}</td>
                   <td>{problem.companies.join(", ")}</td>
                   <td>
+                  {role === "admin" ? (
                     <DeleteOutlined
                       onClick={() => handleDeleteClick(problem)}
                       type="primary"
@@ -222,6 +250,9 @@ function ProblemsPage() {
                     >
                       Delete Problem
                     </DeleteOutlined>
+                     ) : (
+                      <></>
+                    )}
                   </td>
                 </tr>
               ))}

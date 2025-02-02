@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp.jsx";
 import ProblemsPage from "./pages/ProblemsPage.jsx"
 import SubmissonsPage from "./pages/SubmissonsPage.jsx";
 import ProblemDetailsPage from "./pages/ProblemDetailsPage.jsx";
+import Compiler from "./pages/Compiler.jsx";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/problems" element={<ProblemsPage />} />
         <Route path="/problem/:id" element={<ProblemDetailsPage />} />
         <Route path="/submissions" element={<SubmissonsPage />} />
+        <Route path="/compiler" element={<Compiler/>} />
+
       </Routes>
     </Router>
   );

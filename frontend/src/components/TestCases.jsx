@@ -65,7 +65,7 @@ function TestCases({ id, value, language, input, onChangeInput }) {
     }
     catch (error) {
       console.error("Error during submission:", error);
-      setOutput( error.response.data.stack || error.response.data.message);
+      setOutput( "Error during submission");
       // return next(new AppError(`Submission failed: ${error.message}`, 500));
   }
      finally {

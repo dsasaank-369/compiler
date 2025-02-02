@@ -85,6 +85,7 @@ function Login() {
             size="large"
             disabled={!email || !password}
             onClick={handleLogin}
+            style={{ color: "white" }}
           >
             Login
           </Button>

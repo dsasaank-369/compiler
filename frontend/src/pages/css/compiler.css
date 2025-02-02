@@ -1,0 +1,10 @@
+.compiler-body h1{
+    text-align: center;
+    padding: 20px;
+}
+
+.main-compiler{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 20px;
+}

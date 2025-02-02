@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {Input, Button, message, Popover} from 'antd';
+import {Input, Button, message, Popover, Checkbox} from 'antd';
 import { Link } from 'react-router-dom';
 
 
 import API_URI from "../config";
+import { color } from "@uiw/react-codemirror";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -13,13 +14,23 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const[loading, setLoading]=useState(false);
+  const [role, setRole]=useState("user");
 
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+  const onChecked=(e)=>{
+    message.error("Sorry you don't have access to enable!");
+    setRole("admin");
 
-    const userData = { name, email, password, passwordConfirm };
+    setTimeout(() => {
+      setRole("user");
+    }, 1000);
+
+  }
+
+  const handleSignUp = async (e) => {
+
+    const userData = { name, email, password, passwordConfirm, role };
 
     console.log(userData);
 
@@ -62,8 +73,10 @@ function SignUp() {
                 <Input.Password placeholder="Confirm Password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)}/>
             </div>
             <div>Existing User? <Link to="/login">Login</Link></div>
+            <Checkbox onChange={onChecked} style={{color:"white"}} checked={role === "admin"} >Admin access?</Checkbox>
+
             <Popover content={(!name || !email || !passwordConfirm || !password)?<>Please fill all the fields</>:<>Good to click!</>}>
-                <Button loading={loading} type="primary" size="large" disabled={!name || !email || !passwordConfirm || !password} onClick={handleSignUp}>Register</Button>
+                <Button loading={loading} type="primary" size="large" style={{ color: "white" }} disabled={!name || !email || !passwordConfirm || !password} onClick={handleSignUp}>Register</Button>
             </Popover>
         </div>
     </div>

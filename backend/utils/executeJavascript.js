@@ -2,7 +2,12 @@ const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-const executeJavascript = (filepath, inputFilePath, timeLimit = 10000) => {
+const folder=path.join(__dirname,'outputs');
+if(!fs.existsSync(folder)){
+    fs.mkdirSync(folder);
+}
+
+const executeJavascript = (filepath, inputFilePath, timeLimit) => {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(filepath)) {
       return reject(new Error(`File not found: ${filepath}`));

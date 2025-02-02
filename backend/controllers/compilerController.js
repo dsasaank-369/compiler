@@ -59,14 +59,9 @@ exports.runCode = catchAsync(async (req, res, next) => {
 });
 
 exports.submitCode = catchAsync(async (req, res, next) => {
-    const {
-        code,
-        language,
-        problemId,
-        userId, input
-    } = req.body;
+    const { code, language, problemId, userId } = req.body;
 
-    console.log(req.body+"POST");
+    console.log(req.body);
 
     if (!code || !language) {
         return next(
@@ -79,8 +74,6 @@ exports.submitCode = catchAsync(async (req, res, next) => {
     }
 
     const problem = await Problem.findById(problemId).populate("testCases");
-    console.log(problem+"Prob");
-    
     if (!problem) {
         return next(new AppError("Problem not found.", 404));
     }
@@ -91,30 +84,22 @@ exports.submitCode = catchAsync(async (req, res, next) => {
     const results = [];
 
     if (!problem.testCases || problem.testCases.length === 0) {
-        return res.status(404).json({
-            status: "error",
-            message: "No test cases for this problem.",
-        });
+        return next(new AppError("No test cases available for this problem.", 404));
     }
 
-
-
     for (const testCase of problem.testCases) {
-        const {
-            input,
-            output: expectedOutput
-        } = testCase;
+        const { input, output: expectedOutput } = testCase;
 
         try {
-
-            const inputsDir = path.join(__dirname, "../utils/Inputs");
-
-            if (!fs.existsSync(inputsDir)) {
-                fs.mkdirSync(inputsDir, { recursive: true });
+            console.log(`Processing test case: ${input}`);
+            const pathToInput = path.join(__dirname, '..', 'utils', 'Inputs');
+            // Ensure the directory exists
+            if (!fs.existsSync(pathToInput)) {
+                fs.mkdirSync(pathToInput, { recursive: true });
             }
 
-            const inputFilePath = path.join(inputsDir, `input-${Date.now()}.txt`);
-            fs.writeFileSync(inputFilePath, input, "utf-8");
+            const inputFilePath = path.join(pathToInput, `input-${Date.now()}.txt`);
+            fs.writeFileSync(inputFilePath, input);
 
             let executionResult;
 
@@ -155,64 +140,36 @@ exports.submitCode = catchAsync(async (req, res, next) => {
                 passedCount++;
             }
 
-
-
-
             results.push({
                 input,
                 expectedOutput,
                 output: executionResult.trim(),
                 isPassed: executionResult.trim() === expectedOutput.trim(),
             });
-
-        } catch (error) {
-            console.error("Error during code execution:", error);
-            return res.status(500).json({
-                status: "error",
-                message: error.message || "Something went wrong during execution",
-                stack: error.stack
-            });
+        } catch (err) {
+            console.error("Error during code execution:", err);
+            return next(new AppError(`Execution error: ${err.message}`, 500));
         }
-
     }
 
     const accuracy =
-        problem.testCases.length > 0 ?
-            (passedCount / problem.testCases.length) * 100 :
-            0;
+        problem.testCases.length > 0
+            ? (passedCount / problem.testCases.length) * 100
+            : 0;
 
-    console.log(JSON.stringify({
-        problemId: new mongoose.Types.ObjectId(problemId),
-            userId: new mongoose.Types.ObjectId(userId),
-            code,
-            language,
-            results,
-            passedCount,
-            accuracy,
-            verdict: passedCount === problem.testCases.length ? "Accepted" : "Rejected",
-    }) + " Submission");
+    const submission = await Submission.create({
+        problemId,
+        userId,
+        code,
+        language,
+        results,
+        passedCount,
+        accuracy,
+        verdict: passedCount === problem.testCases.length ? "Accepted" : "Rejected",
+    });
 
-
-        const submission =  await Submission.create({
-            problemId: problemId,
-            userId: userId,
-            code,
-            language,
-            results,
-            passedCount,
-            accuracy,
-            verdict: passedCount === problem.testCases.length ? "Accepted" : "Rejected",
-        });
-        console.log("End");
-        
-    
-    
-        res.status(200).json({
-            status: "success"
-            ,
-            data: {
-                submission,
-            },
-        });
-    
+    res.status(200).json({
+        status: "success",
+        data: { submission },
+    });
 });

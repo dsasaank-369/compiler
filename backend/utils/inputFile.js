@@ -10,7 +10,7 @@ if(!fs.existsSync(folder)){
 
 const inputfile=async(input)=>{
     const jobID=uuidv4();
-    const filename=`${jobID}.txt`;
+    const filename=`${jobID}.out`;
     const filepath= path.join(folder,filename);
     await fs.writeFileSync(filepath, input);
     return filepath;
