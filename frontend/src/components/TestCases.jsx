@@ -10,6 +10,7 @@ function TestCases({ id, value, language, input, onChangeInput }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const runCode = async () => {
+    setOutput("Running...")
     try {
       const response = await axios.post(`${API_URI}/users/run`, {
         code: value,
@@ -96,7 +97,7 @@ function TestCases({ id, value, language, input, onChangeInput }) {
           className=""
           disabled={isLoading}
         >
-          {isLoading ? "Running..." : "Submit"}
+          {isLoading ? "..." : "Submit"}
         </button>
       </div>
       {errorMessage && <p className="mt-2 text-red-500">{errorMessage}</p>}
