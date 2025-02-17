@@ -1,3 +1,5 @@
+const path=require("path")
+
 const express=require('express');
 const cors=require('cors');
 const mongoose = require('mongoose');
@@ -18,6 +20,8 @@ app.use(cors());
 require('dotenv').config();
 const port=process.env.PORT || 5001;
 
+
+const _dirname=path.resolve();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -77,6 +81,11 @@ app.post("/run",async(req,res)=>{
     }
 
 });
+
+app.use(express.static(path.join(_dirname,"/frontend/dist")));
+app.get('*',(req,res)=>{
+  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"));
+} )
 
 app.listen(port,()=>{
     console.log(`Server running on ${port}`);
