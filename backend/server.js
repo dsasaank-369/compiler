@@ -28,9 +28,9 @@ app.use(express.urlencoded({extended:true}));
 
 app.use("/problems", problemRoutes);
 
-app.get("/",(req,res)=>{
-    res.send("Hello World!");
-});
+// app.get("/",(req,res)=>{
+//     res.send("Hello World!");
+// });
 
 mongoose.connect(process.env.connect_db).then((result)=>{ 
   console.log("DB connected");
