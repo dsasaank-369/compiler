@@ -2,9 +2,9 @@ const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-const folder=path.join(__dirname,'outputs');
-if(!fs.existsSync(folder)){
-    fs.mkdirSync(folder);
+const folder = path.join(__dirname, 'outputs');
+if (!fs.existsSync(folder)) {
+  fs.mkdirSync(folder);
 }
 
 const executeJava = (filePath, inputFilePath, timeLimit) => {
@@ -20,18 +20,18 @@ const executeJava = (filePath, inputFilePath, timeLimit) => {
     const fileName = path.basename(filePath, ".java");
     const dir = path.dirname(filePath);
 
-    const command = `${inputFilePath ? `javac ${filePath} && java -cp ${dir} ${fileName} < ${inputFilePath}` : `javac ${filePath} && java -cp ${dir} ${fileName} `};`;
+    // Here we are assuming that you are passing a precompiled .class file
+    const command = `${inputFilePath ? `java -cp ${dir} ${fileName} < ${inputFilePath}` : `java -cp ${dir} ${fileName}`} `;
+    
     exec(command, { timeout: timeLimit }, (error, stdout, stderr) => {
       if (error) {
         if (error.killed || error.signal === "SIGTERM") {
           return reject(
-            new Error(
-              "Time Limit Exceeded: The script took too long to execute."
-            )
+            new Error("Time Limit Exceeded: The script took too long to execute.")
           );
         }
 
-        console.error("Execution Erroryo:", error.message);
+        console.error("Execution Error:", error.message);
         console.error("Standard Error Output:", stderr);
         return reject(
           new Error(stderr || error.message || "Error executing Java code.")
@@ -39,7 +39,6 @@ const executeJava = (filePath, inputFilePath, timeLimit) => {
       }
 
       resolve(stdout.trim());
-      
     });
   });
 };
