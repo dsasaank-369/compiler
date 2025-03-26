@@ -36,9 +36,16 @@ The Online Coding Platform is a full-stack web application designed to provide a
 2. Change the backend url in config.js to const API_URI = "http://localhost:5000/api/v1";
 3. Move all the package.json files inside backend folder.
 4. Install dependencies:
-5. ```bash
+   ```bash
    npm install
-6. Start the backend server(npm run dev) and frontend server (npm start)
+6. Start the backend server
+   ```bash
+   cd backend
+   npm install
+7. Start the frontend server
+   ```bash
+   cd frontend
+   npm start
 
 ## Contribution
 Contributions are welcome! Please submit a pull request or open an issue to discuss improvements.
