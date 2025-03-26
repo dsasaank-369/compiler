@@ -3,7 +3,7 @@ The Online Coding Platform is a full-stack web application designed to provide a
 
 ## Features
 - **User Authentication**: Secure login and registration system for users.
-- **Multi-Language Compiler**: Supports C++, Python, and JavaScript.
+- **Multi-Language Compiler**: Supports C++, Python, Java, and JavaScript.
 - **Problem Management System**: Allows users to solve coding problems and submit solutions.
 - **Real-Time Execution**: Provides instant feedback on submitted code.
 - **Test Case Coverage**: 95% test case coverage ensures robust validation of code submissions.
