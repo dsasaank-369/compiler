@@ -31,8 +31,7 @@ The Online Coding Platform is a full-stack web application designed to provide a
 ### Steps:
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/online-coding-platform.git
-   cd online-coding-platform
+   git clone https://github.com/dsasaank-369/compiler.git
 2. Change the backend url in config.js to const API_URI = "http://localhost:5000/api/v1";
 3. Move all the package.json files inside backend folder.
 4. Install dependencies:
